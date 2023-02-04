@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/character_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/card_background"
+    android:elevation="8dp"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="16dp">
+
+    <ImageView
+        android:id="@+id/cardImage"
+        android:layout_width="40dp"
+        android:layout_height="64dp"
+        android:background="@color/shimmer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/cardTitle"
+        android:layout_width="186dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/shimmer"
+        app:layout_constraintStart_toEndOf="@id/cardImage"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/cardBody"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/shimmer"
+        app:layout_constraintStart_toStartOf="@id/cardTitle"
+        app:layout_constraintTop_toBottomOf="@id/cardTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
