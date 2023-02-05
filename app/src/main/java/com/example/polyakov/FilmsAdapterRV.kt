@@ -35,9 +35,9 @@ class FilmsAdapterRV: RecyclerView.Adapter<FilmsAdapterRV.FilmViewHolder>() {
 
     class FilmViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val filmCard: ConstraintLayout = itemView.findViewById(R.id.card_root)
-        val filmPoster: ImageView = itemView.findViewById(R.id.cardImage)
-        val filmTitle: TextView = itemView.findViewById(R.id.cardTitle)
-        val genresAndYear: TextView = itemView.findViewById(R.id.cardBody)
+        private val filmPoster: ImageView = itemView.findViewById(R.id.cardImage)
+        private val filmTitle: TextView = itemView.findViewById(R.id.cardTitle)
+        private val genresAndYear: TextView = itemView.findViewById(R.id.cardBody)
 
         fun bind(film: Film) {
             Glide.with(filmPoster.context).load(film.posterURLPreview).into(filmPoster)
