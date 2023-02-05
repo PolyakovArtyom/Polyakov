@@ -11,9 +11,6 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.example.polyakov.data.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class SingleFilmFragment(private val film: Film) : Fragment() {
 
