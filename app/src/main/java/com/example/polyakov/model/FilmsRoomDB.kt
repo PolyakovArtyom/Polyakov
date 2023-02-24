@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.polyakov.core.Converters
 import com.example.polyakov.model.daos.FilmsDAO
 import com.example.polyakov.model.daos.SingleFilmDAO
 import com.example.polyakov.model.entities.Films
 import com.example.polyakov.model.entities.SingleFilmServerModel
 
-@Database(entities = [Films::class, SingleFilmServerModel::class], version = 2)
+@Database(entities = [Films::class, SingleFilmServerModel::class], version = 4)
+@TypeConverters(Converters::class)
 abstract class FilmsRoomDB: RoomDatabase() {
 
     abstract fun getFilmsDao(): FilmsDAO

@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.polyakov.R
 import com.example.polyakov.model.entities.Films
 
-class FilmsAdapterRV: RecyclerView.Adapter<FilmsAdapterRV.FilmViewHolder>() {
+class FilmsAdapterRV(private val onCardClick : (Int) -> Unit): RecyclerView.Adapter<FilmsAdapterRV.FilmViewHolder>() {
 
     var list: MutableList<Films> = mutableListOf()
     set(value) {
@@ -26,24 +27,24 @@ class FilmsAdapterRV: RecyclerView.Adapter<FilmsAdapterRV.FilmViewHolder>() {
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
         holder.bind(list[position])
-//        holder.filmCard.setOnClickListener {
-//            onCardClick?.invoke(list[position])
-//        }
+        holder.filmCard.setOnClickListener {
+            onCardClick.invoke(list[position].filmId)
+        }
     }
 
     override fun getItemCount(): Int = list.size
 
     class FilmViewHolder(view: View): RecyclerView.ViewHolder(view) {
-//        val filmCard: ConstraintLayout = itemView.findViewById(R.id.card_root)
+        val filmCard: ConstraintLayout = itemView.findViewById(R.id.card_root)
         private val filmPoster: ImageView = itemView.findViewById(R.id.cardImage)
         private val filmTitle: TextView = itemView.findViewById(R.id.cardTitle)
-//        private val genresAndYear: TextView = itemView.findViewById(R.id.cardBody)
+        private val genresAndYear: TextView = itemView.findViewById(R.id.cardBody)
 
         fun bind(film: Films) {
             Glide.with(filmPoster.context).load(film.posterURLPreview).into(filmPoster)
             filmTitle.text = film.name
-//            val year = film.genres[0].genre + "(" + film.year + ")"
-//            genresAndYear.text = year
+            val genresAndYearText = film.genres[0].genre + " (" + film.year + ")"
+            genresAndYear.text = genresAndYearText
         }
     }
 }

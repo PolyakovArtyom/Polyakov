@@ -7,8 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.polyakov.model.entities.Films
 
-//import com.example.polyakov.model.entities.Films
-
 @Dao
 interface FilmsDAO {
 
