@@ -67,8 +67,8 @@ data class SingleFilmServerModel (
 //    val ratingMPAA: Any? = null,
 //
 //    val ratingAgeLimits: String,
-//    val countries: List<Country>,
-//    val genres: List<Genre>,
+    val countries: List<Country>,
+    val genres: List<Genre>,
 //    val startYear: Any? = null,
 //    val endYear: Any? = null,
 //    val serial: Boolean,

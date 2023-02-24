@@ -28,16 +28,18 @@ class SingleFilmFragment : Fragment() {
         val imageView = view.findViewById<ImageView>(R.id.cardImage)
         val filmName = view.findViewById<TextView>(R.id.filmName)
         val description = view.findViewById<TextView>(R.id.filmDescription)
-//        val genres = view.findViewById<TextView>(R.id.filmGenres)
-//        val countries = view.findViewById<TextView>(R.id.filmCountries)
+        val genres = view.findViewById<TextView>(R.id.filmGenres)
+        val countries = view.findViewById<TextView>(R.id.filmCountries)
         val year = view.findViewById<TextView>(R.id.filmYear)
 
         arguments?.let {bundle ->
-            viewModel.singleFilmLiveData(bundle.getInt("film_id")).observe(viewLifecycleOwner){film ->
+            viewModel.singleFilmLiveData(bundle.getInt("FILM_ID")).observe(viewLifecycleOwner){film ->
                 Glide.with(requireContext()).load(film.posterURL).into(imageView)
                 filmName.text = film.name
                 description.text = film.description
                 year.text = film.year.toString()
+                genres.text = film.genres[0].genre
+                countries.text = film.countries[0].country
             }
         }
 //        val dataSource = CloudDataSource()

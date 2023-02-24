@@ -21,8 +21,8 @@ data class Films(
 //    val nameEn: String? = null,
     val year: String,
 //    val filmLength: String,
-//    val countries: List<Country>,
-//    val genres: List<Genre>,
+    val countries: List<Country>,
+    val genres: List<Genre>,
 //    val rating: String,
 //    val ratingVoteCount: Int,
 

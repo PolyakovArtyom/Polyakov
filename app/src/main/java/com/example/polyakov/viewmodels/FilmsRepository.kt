@@ -15,18 +15,9 @@ class FilmsRepository private constructor(application: Application) {
     private val singleFilmDAO = FilmsRoomDB.getDataBase(application).getSingleFilmDao()
     private val filmsCalls = RetrofitInstance.getInstance().create(FilmListService::class.java)
 
-    private suspend fun insertFilms(films: Films) {
+    private fun insertFilms(films: Films) {
         filmsDAO.insertFilms(films)
     }
-
-//    private suspend fun insertSingleFilm(singleFilmServerModel: SingleFilmServerModel, filmId: Int) {
-//        try {
-//            val singleFilm = filmsCalls.getFilm(filmId)
-//            singleFilmDAO.insertFilms(singleFilm)
-//        } catch (e: Exception) {
-//            Log.d(TAG, e.toString())
-//        }
-//    }
 
     suspend fun getFilmsLiveData(): LiveData<List<Films>> {
         return filmsDAO.getFilmsLiveData().also {
@@ -57,7 +48,7 @@ class FilmsRepository private constructor(application: Application) {
     }
 
     companion object {
-        private val TAG = "Tag"
+        private const val TAG = "Tag"
         private var INSTANCE: FilmsRepository? = null
 
         fun getInstance(application: Application): FilmsRepository = INSTANCE ?: kotlin.run {
