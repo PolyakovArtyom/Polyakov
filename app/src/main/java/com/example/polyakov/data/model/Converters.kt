@@ -1,8 +1,8 @@
-package com.example.polyakov.core
+package com.example.polyakov.data.model
 
 import androidx.room.TypeConverter
-import com.example.polyakov.model.entities.Country
-import com.example.polyakov.model.entities.Genre
+import com.example.polyakov.data.model.entities.Country
+import com.example.polyakov.data.model.entities.Genre
 
 class Converters {
 

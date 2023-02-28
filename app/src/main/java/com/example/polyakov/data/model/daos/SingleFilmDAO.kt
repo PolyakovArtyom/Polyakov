@@ -1,11 +1,10 @@
-package com.example.polyakov.model.daos
+package com.example.polyakov.data.model.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.polyakov.model.entities.SingleFilmServerModel
+import com.example.polyakov.data.model.entities.SingleFilmServerModel
 
 @Dao
 interface SingleFilmDAO {
@@ -13,5 +12,5 @@ interface SingleFilmDAO {
     fun insertFilms(singleFilmServerModel: SingleFilmServerModel)
 
     @Query("SELECT * FROM single_film_table WHERE filmId = :filmId")
-    fun getSingleFilmByIdLiveData(filmId: Int): LiveData<SingleFilmServerModel>
+    fun getSingleFilmByIdDB(filmId: Int): SingleFilmServerModel
 }

@@ -1,4 +1,4 @@
-package com.example.polyakov.view
+package com.example.polyakov.view.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +9,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.polyakov.R
-import com.example.polyakov.model.entities.Films
+import com.example.polyakov.domain.CommonFilmsItem
 
 class FilmsAdapterRV(private val onCardClick : (Int) -> Unit): RecyclerView.Adapter<FilmsAdapterRV.FilmViewHolder>() {
 
-    var list: MutableList<Films> = mutableListOf()
+    var list: MutableList<CommonFilmsItem> = mutableListOf()
     set(value) {
         field = value
         notifyDataSetChanged()
@@ -28,7 +28,7 @@ class FilmsAdapterRV(private val onCardClick : (Int) -> Unit): RecyclerView.Adap
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
         holder.bind(list[position])
         holder.filmCard.setOnClickListener {
-            onCardClick.invoke(list[position].filmId)
+            onCardClick.invoke(list[position].id)
         }
     }
 
@@ -40,10 +40,10 @@ class FilmsAdapterRV(private val onCardClick : (Int) -> Unit): RecyclerView.Adap
         private val filmTitle: TextView = itemView.findViewById(R.id.cardTitle)
         private val genresAndYear: TextView = itemView.findViewById(R.id.cardBody)
 
-        fun bind(film: Films) {
-            Glide.with(filmPoster.context).load(film.posterURLPreview).into(filmPoster)
-            filmTitle.text = film.name
-            val genresAndYearText = film.genres[0].genre + " (" + film.year + ")"
+        fun bind(film: CommonFilmsItem) {
+            Glide.with(filmPoster.context).load(film.posterURL).into(filmPoster)
+            filmTitle.text = film.filmName
+            val genresAndYearText = film.genres + " (" + film.year + ")"
             genresAndYear.text = genresAndYearText
         }
     }

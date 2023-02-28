@@ -1,13 +1,13 @@
-package com.example.polyakov.viewmodels
+package com.example.polyakov.data
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import com.example.polyakov.api.FilmListService
-import com.example.polyakov.api.RetrofitInstance
-import com.example.polyakov.model.FilmsRoomDB
-import com.example.polyakov.model.entities.Films
-import com.example.polyakov.model.entities.SingleFilmServerModel
+import com.example.polyakov.data.api.FilmListService
+import com.example.polyakov.data.api.RetrofitInstance
+import com.example.polyakov.data.model.FilmsRoomDB
+import com.example.polyakov.data.model.entities.Films
+import com.example.polyakov.domain.CommonFilmsItem
+import com.example.polyakov.domain.TAG
 
 class FilmsRepository private constructor(application: Application) {
 
@@ -19,8 +19,13 @@ class FilmsRepository private constructor(application: Application) {
         filmsDAO.insertFilms(films)
     }
 
-    suspend fun getFilmsLiveData(): LiveData<List<Films>> {
-        return filmsDAO.getFilmsLiveData().also {
+    suspend fun getFilmsDB(): MutableList<CommonFilmsItem> {
+        val serverList = filmsDAO.getFilmsDB()
+        val itemList = mutableListOf<CommonFilmsItem>()
+        serverList.forEach { films ->
+            itemList.add(films.toItem())
+        }
+        return itemList.also {
             getFilmsFromRemote()
         }
     }
@@ -36,19 +41,22 @@ class FilmsRepository private constructor(application: Application) {
         }
     }
 
-    suspend fun getSingleFilmLiveData(filmId: Int): LiveData<SingleFilmServerModel> {
-        return singleFilmDAO.getSingleFilmByIdLiveData(filmId).also {
-            try {
-                val singleFilm = filmsCalls.getFilm(filmId)
-                singleFilmDAO.insertFilms(singleFilm)
-            } catch (e: Exception) {
-                Log.d(TAG, e.toString())
-            }
+    suspend fun getSingleFilmByIdDB(filmId: Int): CommonFilmsItem {
+        return singleFilmDAO.getSingleFilmByIdDB(filmId).toItem().also {
+            insertSingleFilm(filmId)
+        }
+    }
+
+    private suspend fun insertSingleFilm(id: Int) {
+        try {
+            val singleFilm = filmsCalls.getFilm(id)
+            singleFilmDAO.insertFilms(singleFilm)
+        } catch (e: Exception) {
+            Log.d(TAG, e.toString())
         }
     }
 
     companion object {
-        private const val TAG = "Tag"
         private var INSTANCE: FilmsRepository? = null
 
         fun getInstance(application: Application): FilmsRepository = INSTANCE ?: kotlin.run {

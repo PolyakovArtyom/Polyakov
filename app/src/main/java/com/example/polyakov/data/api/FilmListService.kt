@@ -1,7 +1,7 @@
-package com.example.polyakov.api
+package com.example.polyakov.data.api
 
-import com.example.polyakov.model.entities.FilmsServerModel
-import com.example.polyakov.model.entities.SingleFilmServerModel
+import com.example.polyakov.data.model.entities.FilmsServerModel
+import com.example.polyakov.data.model.entities.SingleFilmServerModel
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/popularFilmsFrag"
-        android:name="com.example.polyakov.view.PopularFilmsFragment"
+        android:name="com.example.polyakov.view.fragments.PopularFilmsFragment"
         android:label="Popular films fragment"
         tools:layout="@layout/fragment_popular_films">
 
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/singleFilmFrag"
-        android:name="com.example.polyakov.view.SingleFilmFragment"
+        android:name="com.example.polyakov.view.fragments.SingleFilmFragment"
         android:label="Single film fragment"
         tools:layout="@layout/fragment_single_film" />
 </navigation>

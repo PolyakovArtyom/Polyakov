@@ -1,11 +1,10 @@
-package com.example.polyakov.model.daos
+package com.example.polyakov.data.model.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.polyakov.model.entities.Films
+import com.example.polyakov.data.model.entities.Films
 
 @Dao
 interface FilmsDAO {
@@ -14,5 +13,5 @@ interface FilmsDAO {
     fun insertFilms(films: Films)
 
     @Query("SELECT * FROM films_table")
-    fun getFilmsLiveData(): LiveData<List<Films>>
+    fun getFilmsDB(): List<Films>
 }
