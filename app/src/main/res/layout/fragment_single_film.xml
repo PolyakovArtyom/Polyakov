@@ -15,7 +15,7 @@
             android:id="@+id/full_card_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".view.SingleFilmFragment">
+            tools:context=".view.fragments.SingleFilmFragment">
 
             <ImageView
                 android:id="@+id/cardImage"

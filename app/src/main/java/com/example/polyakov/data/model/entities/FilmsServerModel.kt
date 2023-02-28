@@ -1,8 +1,9 @@
-package com.example.polyakov.model.entities
+package com.example.polyakov.data.model.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.polyakov.domain.CommonFilmsItem
 import com.google.gson.annotations.SerializedName
 
 data class FilmsServerModel(
@@ -18,13 +19,10 @@ data class Films(
 
     @SerializedName("nameRu")
     val name: String,
-//    val nameEn: String? = null,
+
     val year: String,
-//    val filmLength: String,
     val countries: List<Country>,
     val genres: List<Genre>,
-//    val rating: String,
-//    val ratingVoteCount: Int,
 
     @SerializedName("posterUrl")
     @ColumnInfo(name = "poster_URL")
@@ -34,13 +32,9 @@ data class Films(
     @ColumnInfo(name = "poster_URL_preview")
     val posterURLPreview: String,
 
-//    val description: String
-
-//    val ratingChange: Any? = null
-) {
-//    fun to(): String {
-//        return filmID.toString() + name + year
-//    }
+    ) {
+    fun toItem() =
+        CommonFilmsItem(filmId, posterURL, filmName = name, genres = genres[0].genre, year = year)
 }
 
 data class Country(

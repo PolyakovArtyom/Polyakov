@@ -1,11 +1,11 @@
-package com.example.polyakov.api
+package com.example.polyakov.data.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
 
-    private val BASE_URL = "https://kinopoiskapiunofficial.tech/api/v2.2/films/"
+    private const val BASE_URL = "https://kinopoiskapiunofficial.tech/api/v2.2/films/"
     private var INSTANCE: Retrofit? = null
 
     fun getInstance(): Retrofit = INSTANCE ?: kotlin.run {
@@ -14,7 +14,4 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
-//    val filmListService: FilmListService
-//        get() = RetrofitClient.getClient(BASE_URL).create(FilmListService::class.java)
 }
