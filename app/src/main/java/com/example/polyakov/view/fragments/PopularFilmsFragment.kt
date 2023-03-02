@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.polyakov.R
 import com.example.polyakov.databinding.FragmentPopularFilmsBinding
+import com.example.polyakov.utils.FILM_ID
 import com.example.polyakov.view.adapters.FilmsAdapterRV
 import com.example.polyakov.view.viewmodels.FilmsListViewModel
 
@@ -32,22 +33,22 @@ class PopularFilmsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         createAdapter()
-        binding.popularFilmsRecyclerView.adapter = adapterRV
         viewModelObserve()
+        viewModel.filmsListLiveData()
     }
 
     private fun createAdapter() {
         adapterRV = FilmsAdapterRV { filmId ->
-            val bundle = bundleOf("FILM_ID" to filmId)
+            val bundle = bundleOf(FILM_ID to filmId)
             findNavController().navigate(R.id.action_nav_graph_to_singleFilmFrag, bundle)
         }
+        binding.popularFilmsRecyclerView.adapter = adapterRV
     }
 
     private fun viewModelObserve() {
         viewModel.observeList(this) {
-            adapterRV!!.list = it.toMutableList()
+            adapterRV?.list = it.toMutableList()
         }
-        viewModel.filmsListLiveData()
     }
 
     override fun onDestroy() {

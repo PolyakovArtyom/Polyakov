@@ -1,7 +1,10 @@
 package com.example.polyakov.view.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import com.example.polyakov.domain.BaseInteractor
 import com.example.polyakov.domain.CommonFilmsItem
 import com.example.polyakov.view.Communication
@@ -17,7 +20,7 @@ class FilmsListViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch(Dispatchers.IO) {
             val filmsList = interactor.getFilmsList()
             withContext(Dispatchers.Main) {
-                communication.getList(filmsList)
+                communication.updateList(filmsList)
             }
         }
 

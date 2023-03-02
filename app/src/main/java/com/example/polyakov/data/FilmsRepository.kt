@@ -2,8 +2,7 @@ package com.example.polyakov.data
 
 import android.app.Application
 import android.util.Log
-import com.example.polyakov.data.api.FilmListService
-import com.example.polyakov.data.api.RetrofitInstance
+import com.example.polyakov.App
 import com.example.polyakov.data.model.FilmsRoomDB
 import com.example.polyakov.data.model.entities.Films
 import com.example.polyakov.domain.CommonFilmsItem
@@ -13,7 +12,7 @@ class FilmsRepository private constructor(application: Application) {
 
     private val filmsDAO = FilmsRoomDB.getDataBase(application).getFilmsDao()
     private val singleFilmDAO = FilmsRoomDB.getDataBase(application).getSingleFilmDao()
-    private val filmsCalls = RetrofitInstance.getInstance().create(FilmListService::class.java)
+    private val filmsCalls = (application as App).appComponent.retrofitApi
 
     private fun insertFilms(films: Films) {
         filmsDAO.insertFilms(films)
@@ -42,7 +41,8 @@ class FilmsRepository private constructor(application: Application) {
     }
 
     suspend fun getSingleFilmByIdDB(filmId: Int): CommonFilmsItem {
-        return singleFilmDAO.getSingleFilmByIdDB(filmId).toItem().also {
+        val a = singleFilmDAO.getSingleFilmByIdDB(filmId)
+        return a.toItem().also {
             insertSingleFilm(filmId)
         }
     }

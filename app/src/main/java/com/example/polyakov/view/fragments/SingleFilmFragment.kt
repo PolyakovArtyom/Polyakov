@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.polyakov.databinding.FragmentSingleFilmBinding
+import com.example.polyakov.utils.FILM_ID
 import com.example.polyakov.view.viewmodels.SingleFilmVIewModel
 
 class SingleFilmFragment : Fragment() {
@@ -27,21 +28,20 @@ class SingleFilmFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        arguments?.let { bundle ->
+            viewModel.singleFilmLiveData(bundle.getInt(FILM_ID))
+        }
         observeViewModel()
     }
 
     private fun observeViewModel() {
-        arguments?.let { bundle ->
-            viewModel.observeFilm(this) { film ->
-                Glide.with(requireContext()).load(film.posterURL).into(binding.cardImage)
-                binding.filmName.text = film.filmName
-                binding.filmDescription.text = film.description
-                binding.filmYear.text = film.year
-                binding.filmGenres.text = film.genres
-                binding.filmCountries.text = film.countries
-            }
-            viewModel.singleFilmLiveData(bundle.getInt("FILM_ID"))
+        viewModel.observeFilm(this) { film ->
+            Glide.with(requireContext()).load(film.posterURL).into(binding.cardImage)
+            binding.filmName.text = film.filmName
+            binding.filmDescription.text = film.description
+            binding.filmYear.text = film.year
+            binding.filmGenres.text = film.genres
+            binding.filmCountries.text = film.countries
         }
     }
 

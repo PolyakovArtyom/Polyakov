@@ -1,9 +1,6 @@
 package com.example.polyakov.data.model.daos
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.polyakov.data.model.entities.Films
 
 @Dao
