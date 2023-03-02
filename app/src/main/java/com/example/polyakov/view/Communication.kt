@@ -9,11 +9,11 @@ class Communication {
     private val listLiveData = MutableLiveData<List<CommonFilmsItem>>()
     private val singleLiveData = MutableLiveData<CommonFilmsItem>()
 
-    fun getList(list: List<CommonFilmsItem>) {
+    fun updateList(list: List<CommonFilmsItem>) {
         listLiveData.value = list
     }
 
-    fun getSingleFilm(film: CommonFilmsItem) {
+    fun updateSingleFilm(film: CommonFilmsItem) {
         singleLiveData.value = film
     }
 
