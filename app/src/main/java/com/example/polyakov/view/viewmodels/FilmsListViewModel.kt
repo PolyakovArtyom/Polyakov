@@ -1,20 +1,19 @@
 package com.example.polyakov.view.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.polyakov.domain.BaseInteractor
 import com.example.polyakov.domain.CommonFilmsItem
 import com.example.polyakov.view.Communication
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class FilmsListViewModel(application: Application) : AndroidViewModel(application) {
-    private val interactor = BaseInteractor.getInstance(application)
-    private val communication: Communication = Communication()
+class FilmsListViewModel : ViewModel() {
+    @Inject
+    lateinit var communication: Communication
+    @Inject
+    lateinit var interactor: BaseInteractor
 
     fun filmsListLiveData() =
         viewModelScope.launch(Dispatchers.IO) {

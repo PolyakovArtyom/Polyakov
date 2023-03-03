@@ -4,8 +4,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.polyakov.domain.CommonFilmsItem
+import javax.inject.Inject
 
-class Communication {
+class Communication @Inject constructor() {
     private val listLiveData = MutableLiveData<List<CommonFilmsItem>>()
     private val singleLiveData = MutableLiveData<CommonFilmsItem>()
 
