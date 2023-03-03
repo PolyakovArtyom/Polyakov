@@ -1,5 +1,6 @@
 package com.example.polyakov.view.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.polyakov.App
 import com.example.polyakov.R
 import com.example.polyakov.databinding.FragmentPopularFilmsBinding
 import com.example.polyakov.utils.FILM_ID
@@ -16,10 +18,15 @@ import com.example.polyakov.view.viewmodels.FilmsListViewModel
 
 class PopularFilmsFragment : Fragment() {
 
-    private val viewModel by viewModels<FilmsListViewModel>()
+    private val viewModel: FilmsListViewModel by viewModels()
     private var adapterRV: FilmsAdapterRV? = null
     private var _binding: FragmentPopularFilmsBinding? = null
     private val binding get() = _binding!!
+
+    override fun onAttach(context: Context) {
+        (context.applicationContext as App).appComponent.inject(viewModel)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

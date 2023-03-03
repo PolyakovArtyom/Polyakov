@@ -1,18 +1,19 @@
 package com.example.polyakov.data
 
-import android.app.Application
 import android.util.Log
-import com.example.polyakov.App
-import com.example.polyakov.data.model.FilmsRoomDB
+import com.example.polyakov.data.api.FilmListService
+import com.example.polyakov.data.model.daos.FilmsDAO
+import com.example.polyakov.data.model.daos.SingleFilmDAO
 import com.example.polyakov.data.model.entities.Films
 import com.example.polyakov.domain.CommonFilmsItem
 import com.example.polyakov.domain.TAG
+import javax.inject.Inject
 
-class FilmsRepository private constructor(application: Application) {
-
-    private val filmsDAO = FilmsRoomDB.getDataBase(application).getFilmsDao()
-    private val singleFilmDAO = FilmsRoomDB.getDataBase(application).getSingleFilmDao()
-    private val filmsCalls = (application as App).appComponent.retrofitApi
+class FilmsRepository @Inject constructor(
+    private val filmsDAO: FilmsDAO,
+    private val singleFilmDAO: SingleFilmDAO,
+    private val filmsCalls: FilmListService
+) {
 
     private fun insertFilms(films: Films) {
         filmsDAO.insertFilms(films)
@@ -41,10 +42,7 @@ class FilmsRepository private constructor(application: Application) {
     }
 
     suspend fun getSingleFilmByIdDB(filmId: Int): CommonFilmsItem {
-        val a = singleFilmDAO.getSingleFilmByIdDB(filmId)
-        return a.toItem().also {
-            insertSingleFilm(filmId)
-        }
+        return singleFilmDAO.getSingleFilmByIdDB(filmId).toItem().also { insertSingleFilm(filmId) }
     }
 
     private suspend fun insertSingleFilm(id: Int) {
@@ -53,15 +51,6 @@ class FilmsRepository private constructor(application: Application) {
             singleFilmDAO.insertFilms(singleFilm)
         } catch (e: Exception) {
             Log.d(TAG, e.toString())
-        }
-    }
-
-    companion object {
-        private var INSTANCE: FilmsRepository? = null
-
-        fun getInstance(application: Application): FilmsRepository = INSTANCE ?: kotlin.run {
-            INSTANCE = FilmsRepository(application = application)
-            INSTANCE!!
         }
     }
 }

@@ -1,13 +1,9 @@
 package com.example.polyakov.domain
 
-import android.app.Application
 import com.example.polyakov.data.FilmsRepository
+import javax.inject.Inject
 
-class BaseInteractor private constructor(application: Application) {
-
-    private val repository = FilmsRepository.getInstance(application)
-    //    private val liveDataFilms = MutableLiveData<MutableList<CommonFilmsItem>>()
-    //    private val liveDataSingleFilm = MutableLiveData<CommonFilmsItem>()
+class BaseInteractor @Inject constructor(private val repository: FilmsRepository) {
 
     suspend fun getFilmsList(): MutableList<CommonFilmsItem> {
         return repository.getFilmsDB()
@@ -15,15 +11,6 @@ class BaseInteractor private constructor(application: Application) {
 
     suspend fun getSingleFilm(id: Int): CommonFilmsItem {
         return repository.getSingleFilmByIdDB(id)
-    }
-
-    companion object {
-        private var INSTANCE: BaseInteractor? = null
-
-        fun getInstance(application: Application): BaseInteractor = INSTANCE ?: kotlin.run {
-            INSTANCE = BaseInteractor(application)
-            INSTANCE!!
-        }
     }
 }
 
