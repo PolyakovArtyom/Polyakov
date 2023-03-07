@@ -13,5 +13,3 @@ class BaseInteractor @Inject constructor(private val repository: FilmsRepository
         return repository.getSingleFilmByIdDB(id)
     }
 }
-
-const val TAG = "Tag"

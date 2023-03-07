@@ -6,7 +6,6 @@ import com.example.polyakov.data.api.FilmListService
 import com.example.polyakov.data.model.FilmsRoomDB
 import com.example.polyakov.data.model.daos.FilmsDAO
 import com.example.polyakov.data.model.daos.SingleFilmDAO
-import com.example.polyakov.utils.BASE_URL
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -53,4 +52,6 @@ object AppModule {
     fun provideSingleFilmByIDDB(roomDB: FilmsRoomDB): SingleFilmDAO {
         return roomDB.getSingleFilmDao()
     }
+
+    private const val BASE_URL = "https://kinopoiskapiunofficial.tech/api/v2.2/films/"
 }

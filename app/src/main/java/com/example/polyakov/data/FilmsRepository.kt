@@ -6,7 +6,6 @@ import com.example.polyakov.data.model.daos.FilmsDAO
 import com.example.polyakov.data.model.daos.SingleFilmDAO
 import com.example.polyakov.data.model.entities.Films
 import com.example.polyakov.domain.CommonFilmsItem
-import com.example.polyakov.domain.TAG
 import javax.inject.Inject
 
 class FilmsRepository @Inject constructor(
@@ -52,5 +51,9 @@ class FilmsRepository @Inject constructor(
         } catch (e: Exception) {
             Log.d(TAG, e.toString())
         }
+    }
+
+    companion object {
+        const val TAG = "Tag"
     }
 }
