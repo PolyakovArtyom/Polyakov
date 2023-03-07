@@ -6,17 +6,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.polyakov.domain.BaseInteractor
 import com.example.polyakov.domain.CommonFilmsItem
-import com.example.polyakov.view.Communication
+import com.example.polyakov.view.communications.CommunicationSingleFilm
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class SingleFilmVIewModel : ViewModel() {
-    @Inject
-    lateinit var interactor: BaseInteractor
-    @Inject
-    lateinit var communication: Communication
+class SingleFilmVIewModel @Inject constructor(
+    private val communication: CommunicationSingleFilm,
+    private val interactor: BaseInteractor
+) : ViewModel() {
+//    @Inject
+//    lateinit var interactor: BaseInteractor
+//    @Inject
+//    lateinit var communication: Communication
 
     fun singleFilmLiveData(filmId: Int) = viewModelScope.launch(Dispatchers.IO) {
         val singleFilm = interactor.getSingleFilm(filmId)

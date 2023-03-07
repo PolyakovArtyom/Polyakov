@@ -6,21 +6,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.polyakov.App
 import com.example.polyakov.databinding.FragmentSingleFilmBinding
-import com.example.polyakov.utils.FILM_ID
 import com.example.polyakov.view.viewmodels.SingleFilmVIewModel
+import com.example.polyakov.view.viewmodels.ViewModelFactory
+import javax.inject.Inject
 
 class SingleFilmFragment : Fragment() {
 
-    private val viewModel by viewModels<SingleFilmVIewModel>()
+    @Inject
+    lateinit var factory: ViewModelFactory
+    lateinit var viewModel: SingleFilmVIewModel
+
     private var _binding: FragmentSingleFilmBinding? = null
     private val binding get() = _binding!!
 
     override fun onAttach(context: Context) {
-        (context.applicationContext as App).appComponent.inject(viewModel)
+        (context.applicationContext as App).appComponent.inject(this)
+        viewModel = factory.create(SingleFilmVIewModel::class.java)
         super.onAttach(context)
     }
 
@@ -54,5 +58,9 @@ class SingleFilmFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        const val FILM_ID = "FILM_ID"
     }
 }

@@ -7,24 +7,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.polyakov.App
 import com.example.polyakov.R
 import com.example.polyakov.databinding.FragmentPopularFilmsBinding
-import com.example.polyakov.utils.FILM_ID
 import com.example.polyakov.view.adapters.FilmsAdapterRV
 import com.example.polyakov.view.viewmodels.FilmsListViewModel
+import com.example.polyakov.view.viewmodels.ViewModelFactory
+import javax.inject.Inject
 
 class PopularFilmsFragment : Fragment() {
 
-    private val viewModel: FilmsListViewModel by viewModels()
+    @Inject
+    lateinit var factory: ViewModelFactory
+    lateinit var viewModel: FilmsListViewModel
+
     private var adapterRV: FilmsAdapterRV? = null
     private var _binding: FragmentPopularFilmsBinding? = null
     private val binding get() = _binding!!
 
     override fun onAttach(context: Context) {
-        (context.applicationContext as App).appComponent.inject(viewModel)
+        (context.applicationContext as App).appComponent.inject(this)
+        viewModel = factory.create(FilmsListViewModel::class.java)
         super.onAttach(context)
     }
 
@@ -62,5 +66,9 @@ class PopularFilmsFragment : Fragment() {
         super.onDestroy()
         adapterRV = null
         _binding = null
+    }
+
+    companion object {
+        const val FILM_ID = "FILM_ID"
     }
 }
